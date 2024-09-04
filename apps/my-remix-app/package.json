@@ -1,36 +1,22 @@
 {
+  "name": "my-remix-app",
   "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev --no-restart -c \"node server.js\"",
+    "build": "remix vite:build",
+    "dev": "node ./server.js",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@remix-run/express": "*",
-    "@remix-run/node": "*",
-    "@remix-run/react": "*",
-    "@remix-nx-monorepo/routes": "workspace:*",
+    "@remix-nx-monorepo/feature-accounts": "workspace:*",
+    "@remix-nx-monorepo/feature-transfers": "workspace:*",
     "@remix-nx-monorepo/ui": "workspace:*",
-    "compression": "^1.7.4",
-    "cross-env": "^7.0.3",
-    "express": "^4.18.2",
-    "isbot": "^3.6.8",
-    "morgan": "^1.10.0",
-    "react": "*",
-    "react-dom": "*"
-  },
-  "devDependencies": {
-    "@remix-run/dev": "*",
-    "@remix-run/eslint-config": "*",
-    "@types/compression": "^1.7.2",
-    "@types/express": "^4.17.17",
-    "@types/morgan": "^1.9.4",
-    "chokidar": "^3.5.3"
+    "@remix-run/node": "*",
+    "isbot": "*"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   }
 }

@@ -1,51 +1,41 @@
-# Welcome to Remix!
+# templates/unstable-vite-express
 
-- [Remix Docs](https://remix.run/docs)
+⚠️ Remix support for Vite is unstable and not recommended for production.
 
-## Development
+📖 See the [Remix Vite docs][remix-vite-docs] for details on supported features.
 
-Start the Remix development asset server and the Express server by running:
+## Setup
 
-```sh
+```shellscript
+npx create-remix@latest --template remix-run/remix/templates/unstable-vite-express
+```
+
+## Run
+
+Spin up the Express server as a dev server:
+
+```shellscript
 npm run dev
 ```
 
-This starts your app in development mode, which will purge the server require cache when Remix rebuilds assets so you don't need a process manager restarting the express server.
+Or build your app for production and run it:
 
-## Deployment
-
-First, build your app for production:
-
-```sh
+```shellscript
 npm run build
+npm run start
 ```
 
-Then run the app in production mode:
+## Customize
 
-```sh
-npm start
+Remix exposes APIs for integrating Vite with a custom server:
+
+```ts
+import {
+  unstable_createViteServer,
+  unstable_loadViteServerBuild,
+} from "@remix-run/dev";
 ```
 
-Now you'll need to pick a host to deploy it to.
+In this template, we'll use Express but remember that these APIs can be used with _any_ Node-compatible server setup that supports standard middleware.
 
-### DIY
-
-If you're familiar with deploying express applications you should be right at home just make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
-
-### Using a Template
-
-When you ran `npx create-remix@latest` there were a few choices for hosting. You can run that again to create a new project, then copy over your `app/` folder to the new project that's pre-configured for your target server.
-
-```sh
-cd ..
-# create a new project, and pick a pre-configured host
-npx create-remix@latest
-cd my-new-remix-app
-# remove the new project's app (not the old one!)
-rm -rf app
-# copy your app over
-cp -R ../my-old-remix-app/app app
-```
+[remix-vite-docs]: https://remix.run/docs/en/main/future/vite
