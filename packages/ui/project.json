@@ -1,7 +1,7 @@
 {
   "name": "ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ui/src",
+  "sourceRoot": "packages/ui/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -9,15 +9,15 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/ui/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["packages/ui/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/libs/ui"],
+      "outputs": ["coverage/packages/ui"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/libs/ui"
+        "reportsDirectory": "../../coverage/packages/ui"
       }
     }
   }

@@ -1,19 +1,22 @@
-import * as fs from "node:fs";
-
 import { createRequestHandler } from "@remix-run/express";
-import { broadcastDevReady, installGlobals } from "@remix-run/node";
-import chokidar from "chokidar";
 import compression from "compression";
 import express from "express";
 import morgan from "morgan";
 
-installGlobals();
+const viteDevServer =
+  process.env.NODE_ENV === "production"
+    ? undefined
+    : await import("vite").then((vite) =>
+        vite.createServer({
+          server: { middlewareMode: true },
+        })
+      );
 
-const BUILD_PATH = "./build/index.js";
-/**
- * @type { import('@remix-run/node').ServerBuild | Promise<import('@remix-run/node').ServerBuild> }
- */
-let build = await import(BUILD_PATH);
+const remixHandler = createRequestHandler({
+  build: viteDevServer
+    ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
+    : await import("./build/server/index.js"),
+});
 
 const app = express();
 
@@ -22,57 +25,27 @@ app.use(compression());
 // http://expressjs.com/en/advanced/best-practice-security.html#at-a-minimum-disable-x-powered-by-header
 app.disable("x-powered-by");
 
-// Remix fingerprints its assets so we can cache forever.
-app.use(
-  "/build",
-  express.static("public/build", { immutable: true, maxAge: "1y" })
-);
+// handle asset requests
+if (viteDevServer) {
+  app.use(viteDevServer.middlewares);
+} else {
+  // Vite fingerprints its assets so we can cache forever.
+  app.use(
+    "/assets",
+    express.static("build/client/assets", { immutable: true, maxAge: "1y" })
+  );
+}
 
 // Everything else (like favicon.ico) is cached for an hour. You may want to be
 // more aggressive with this caching.
-app.use(express.static("public", { maxAge: "1h" }));
+app.use(express.static("build/client", { maxAge: "1h" }));
 
 app.use(morgan("tiny"));
 
-app.all(
-  "*",
-  process.env.NODE_ENV === "development"
-    ? createDevRequestHandler()
-    : createRequestHandler({
-        build,
-        mode: process.env.NODE_ENV,
-      })
-);
+// handle SSR requests
+app.all("*", remixHandler);
 
 const port = process.env.PORT || 3000;
-app.listen(port, async () => {
-  console.log(`Express server listening on port ${port}`);
-
-  if (process.env.NODE_ENV === "development") {
-    broadcastDevReady(build);
-  }
-});
-
-function createDevRequestHandler() {
-  const watcher = chokidar.watch(BUILD_PATH, { ignoreInitial: true });
-
-  watcher.on("all", async () => {
-    // 1. purge require cache && load updated server build
-    const stat = fs.statSync(BUILD_PATH);
-    build = import(BUILD_PATH + "?t=" + stat.mtimeMs);
-    // 2. tell dev server that this app server is now ready
-    broadcastDevReady(await build);
-  });
-
-  return async (req, res, next) => {
-    try {
-      //
-      return createRequestHandler({
-        build: await build,
-        mode: "development",
-      })(req, res, next);
-    } catch (error) {
-      next(error);
-    }
-  };
-}
+app.listen(port, () =>
+  console.log(`Express server listening at http://localhost:${port}`)
+);

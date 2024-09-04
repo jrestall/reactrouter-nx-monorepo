@@ -1,0 +1,9 @@
+{
+  "name": "@remix-nx-monorepo/feature-transfers",
+  "version": "0.0.0",
+  "private": true,
+  "sideEffects": false,
+  "dependencies": {
+    "@remix-nx-monorepo/ui": "workspace:*"
+  }
+}

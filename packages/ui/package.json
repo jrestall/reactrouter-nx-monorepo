@@ -8,5 +8,9 @@
     "types": "./dist/index.d.ts",
     "files": [
       "dist/**"
-    ]
+    ],
+    "exports": {
+      ".": "./src/index.ts",
+      "./server": "./src/server.ts"
+    }
   }
