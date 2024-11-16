@@ -40,3 +40,6 @@ Thumbs.db
 
 #NX
 .nx
+
+# React Router
+.react-router
