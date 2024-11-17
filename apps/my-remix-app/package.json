@@ -6,7 +6,7 @@
   "scripts": {
     "build": "react-router build",
     "dev": "node ./server.js",
-    "dev:typegen": "nx watch --projects=my-remix-app --includeDependentProjects -- nx run -t typegen -p \\$NX_PROJECT_NAME",
+    "dev:typegen": "nx watch --projects=my-remix-app --includeDependentProjects -- nx run-many -t typegen -p \\$NX_PROJECT_NAME --exclude=my-remix-app",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "typecheck": "typegen && tsc",
     "typegen": "react-router typegen"
