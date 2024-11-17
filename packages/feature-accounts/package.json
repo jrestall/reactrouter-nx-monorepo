@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "sideEffects": false,
+  "scripts": {
+    "typegen": "react-router typegen"
+  },
   "dependencies": {
     "@remix-nx-monorepo/ui": "workspace:*"
   }
