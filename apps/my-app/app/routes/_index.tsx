@@ -1,6 +1,6 @@
 import type { MetaFunction } from 'react-router';
 import { Link } from 'react-router';
-import { Ui } from '@remix-nx-monorepo/ui';
+import { Ui } from '@reactrouter-nx-monorepo/ui';
 import type { Route } from './+types/_index';
 
 export const meta: MetaFunction = () => {

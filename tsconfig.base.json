@@ -20,7 +20,7 @@
     "skipLibCheck": true,
     "strict": true,
     "paths": {
-      "@remix-nx-monorepo/typegen": ["tools/plugins/typegen/plugin.ts"]
+      "@reactrouter-nx-monorepo/typegen": ["tools/plugins/typegen/plugin.ts"]
     }
   }
 }

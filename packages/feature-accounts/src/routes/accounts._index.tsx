@@ -1,4 +1,4 @@
-import { Ui } from '@remix-nx-monorepo/ui';
+import { Ui } from '@reactrouter-nx-monorepo/ui';
 
 import type { Route } from './+types/accounts._index';
 

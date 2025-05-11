@@ -1,16 +1,16 @@
 {
-    "name": "@remix-nx-monorepo/ui",
-    "version": "0.0.0",
-    "private": true,
-    "sideEffects": false,
-    "main": "./dist/index.js",
-    "module": "./dist/index.mjs",
-    "types": "./dist/index.d.ts",
-    "files": [
-      "dist/**"
-    ],
-    "exports": {
-      ".": "./src/index.ts",
-      "./server": "./src/server.ts"
-    }
+  "name": "@reactrouter-nx-monorepo/ui",
+  "version": "0.0.0",
+  "private": true,
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./server": "./src/server.ts"
   }
+}

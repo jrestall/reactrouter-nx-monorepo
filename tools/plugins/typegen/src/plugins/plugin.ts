@@ -51,7 +51,7 @@ function createNodesInternal(packageJsonPath: string): CreateNodesResult {
 function typegenTarget(projectRoot: string): TargetConfiguration {
   const target: TargetConfiguration = {
     cache: false,
-    executor: '@remix-nx-monorepo/typegen:typegen',
+    executor: '@reactrouter-nx-monorepo/typegen:typegen',
     options: { cwd: projectRoot },
     metadata: {
       technologies: ['react-router'],
@@ -62,13 +62,11 @@ function typegenTarget(projectRoot: string): TargetConfiguration {
   return target;
 }
 
-function typegenWatchTarget(
-  projectRoot: string,
-): TargetConfiguration {
+function typegenWatchTarget(projectRoot: string): TargetConfiguration {
   const target: TargetConfiguration = {
     cache: false,
     continuous: true,
-    executor: '@remix-nx-monorepo/typegen:watch',
+    executor: '@reactrouter-nx-monorepo/typegen:watch',
     options: { cwd: projectRoot },
     metadata: {
       technologies: ['react-router'],

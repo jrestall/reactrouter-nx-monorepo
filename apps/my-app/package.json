@@ -11,9 +11,9 @@
     "typegen": "react-router typegen"
   },
   "dependencies": {
-    "@remix-nx-monorepo/feature-accounts": "workspace:*",
-    "@remix-nx-monorepo/feature-transfers": "workspace:*",
-    "@remix-nx-monorepo/ui": "workspace:*",
+    "@reactrouter-nx-monorepo/feature-accounts": "workspace:*",
+    "@reactrouter-nx-monorepo/feature-transfers": "workspace:*",
+    "@reactrouter-nx-monorepo/ui": "workspace:*",
     "isbot": "*"
   },
   "engines": {
