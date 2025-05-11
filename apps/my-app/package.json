@@ -1,0 +1,36 @@
+{
+  "name": "my-app",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "node ./server.js",
+    "start": "cross-env NODE_ENV=production node ./server.js",
+    "typecheck": "typegen && tsc",
+    "typegen": "react-router typegen"
+  },
+  "dependencies": {
+    "@reactrouter-nx-monorepo/feature-accounts": "workspace:*",
+    "@reactrouter-nx-monorepo/feature-transfers": "workspace:*",
+    "@reactrouter-nx-monorepo/ui": "workspace:*",
+    "isbot": "*"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "nx": {
+    "targets": {
+      "dev": {
+        "dependsOn": [
+          "typegen-watch"
+        ]
+      },
+      "build": {
+        "dependsOn": [
+          "^typegen"
+        ]
+      }
+    }
+  }
+}

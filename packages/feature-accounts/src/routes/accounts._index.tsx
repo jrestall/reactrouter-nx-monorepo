@@ -1,9 +1,15 @@
-import { Ui } from '@remix-nx-monorepo/ui';
+import { Ui } from '@reactrouter-nx-monorepo/ui';
 
-export default function Component() {
+import type { Route } from './+types/accounts._index';
+
+export function loader({ params }: Route.LoaderArgs) {
+  return { account: 'bob', date: new Date(), fn: () => 1 };
+}
+
+export default function Index({ loaderData }: Route.ComponentProps) {
   return (
     <>
-      <p>Hello from accounts feature</p>
+      <p>Hello {loaderData.account}, from accounts feature</p>
       <Ui />
     </>
   );

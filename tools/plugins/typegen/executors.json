@@ -1,0 +1,14 @@
+{
+  "executors": {
+    "typegen": {
+      "implementation": "./src/executors/typegen/typegen.impl",
+      "schema": "./src/executors/typegen/schema.json",
+      "description": "Generate types for feature packages"
+    },
+    "watch": {
+      "implementation": "./src/executors/watch/watch.impl",
+      "schema": "./src/executors/watch/schema.json",
+      "description": "Generate types for feature packages"
+    }
+  }
+}

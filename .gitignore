@@ -40,3 +40,9 @@ Thumbs.db
 
 #NX
 .nx
+
+# React Router
+.react-router
+
+vite.config.*.timestamp*
+vitest.config.*.timestamp*

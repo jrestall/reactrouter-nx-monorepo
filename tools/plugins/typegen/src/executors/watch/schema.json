@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "version": 2,
+  "title": "Typegen executor",
+  "outputCapture": "direct-nodejs",
+  "cli": "nx",
+  "description": "",
+  "continuous": true,
+  "type": "object",
+  "properties": {},
+  "required": []
+}

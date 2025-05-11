@@ -1,3 +1,14 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "nxConsole.nxWorkspacePath": "",
+    "files.exclude": {
+        "**/packages/*/react-router.config.ts": true,
+        "**/packages/*/root.tsx": true,
+        "**/packages/*/routes.ts": true,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+    }
 }

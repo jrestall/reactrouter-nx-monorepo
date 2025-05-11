@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "**/*",
+    "**/.server/**/*",
+    "**/.client/**/*",
+    ".react-router/types/**/*"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+
+    // Remix takes care of building everything in `remix build`.
+    "noEmit": true,
+
+    "rootDirs": [".", "./.react-router/types"],
+  }
+}
