@@ -43,3 +43,6 @@ Thumbs.db
 
 # React Router
 .react-router
+
+vite.config.*.timestamp*
+vitest.config.*.timestamp*

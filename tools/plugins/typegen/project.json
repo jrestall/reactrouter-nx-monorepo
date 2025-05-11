@@ -1,0 +1,41 @@
+{
+  "name": "typegen",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tools/plugins/typegen/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/tools/plugins/typegen",
+        "main": "tools/plugins/typegen/src/index.ts",
+        "tsConfig": "tools/plugins/typegen/tsconfig.lib.json",
+        "assets": [
+          "tools/plugins/typegen/*.md",
+          {
+            "input": "./tools/plugins/typegen/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/plugins/typegen/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/plugins/typegen",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./tools/plugins/typegen",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@remix-nx-monorepo/typegen",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "dependencies": {
+    "@nx/devkit": "21.0.3",
+    "tslib": "^2.3.0"
+  },
+  "executors": "./executors.json"
+}

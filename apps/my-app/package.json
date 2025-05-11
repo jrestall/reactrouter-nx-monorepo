@@ -1,25 +1,36 @@
 {
-  "name": "my-remix-app",
+  "name": "my-app",
   "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
     "build": "react-router build",
     "dev": "node ./server.js",
-    "dev:typegen": "nx watch --projects=my-remix-app --includeDependentProjects -- nx run-many -t typegen -p \\$NX_PROJECT_NAME --exclude=my-remix-app",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "typecheck": "typegen && tsc",
     "typegen": "react-router typegen"
   },
   "dependencies": {
-    "@react-router/node": "*",
     "@remix-nx-monorepo/feature-accounts": "workspace:*",
     "@remix-nx-monorepo/feature-transfers": "workspace:*",
     "@remix-nx-monorepo/ui": "workspace:*",
-    "isbot": "*",
-    "react-router": "0.0.0-nightly-ab9842614-20241116"
+    "isbot": "*"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "nx": {
+    "targets": {
+      "dev": {
+        "dependsOn": [
+          "typegen-watch"
+        ]
+      },
+      "build": {
+        "dependsOn": [
+          "^typegen"
+        ]
+      }
+    }
   }
 }
