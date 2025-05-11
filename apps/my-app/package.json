@@ -7,7 +7,7 @@
     "build": "react-router build",
     "dev": "node ./server.js",
     "start": "cross-env NODE_ENV=production node ./server.js",
-    "typecheck": "typegen && tsc",
+    "typecheck": "pnpm nx typegen && tsc",
     "typegen": "react-router typegen"
   },
   "dependencies": {
@@ -27,6 +27,11 @@
         ]
       },
       "build": {
+        "dependsOn": [
+          "typegen"
+        ]
+      },
+      "typegen": {
         "dependsOn": [
           "^typegen"
         ]

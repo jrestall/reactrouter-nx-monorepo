@@ -3,17 +3,31 @@ import {
   isDaemonEnabled,
   type ChangedFile,
 } from 'nx/src/daemon/client/client';
-import { output, type ExecutorContext, type PromiseExecutor } from '@nx/devkit';
+import {
+  output,
+  type ExecutorContext,
+  getPackageManagerCommand,
+} from '@nx/devkit';
 import type { TypegenWatchExecutorSchema } from './schema';
 import { BatchCommandRunner } from '../../utils/BatchCommandRunner';
 import path from 'node:path';
 import { debounce } from 'lodash';
+import { execAsync } from '../../utils/execAsync';
 
 export default async function* startWatcher(
   options: TypegenWatchExecutorSchema,
   context: ExecutorContext,
 ): AsyncGenerator<{ success: boolean }> {
-  // TODO:Initial typegen
+  if (!context.projectName) {
+    output.error({ title: 'Project name is not defined in the context.' });
+    return { success: false };
+  }
+
+  // Initial typegen for all project's dependencies
+  await execAsync(
+    `${getPackageManagerCommand().exec} nx typegen ${context.projectName}`,
+    process.cwd(),
+  );
 
   // Watch for changes
   if (isDaemonEnabled()) {

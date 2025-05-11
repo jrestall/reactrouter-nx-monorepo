@@ -1,8 +1,8 @@
 import { logger, output, type PromiseExecutor } from '@nx/devkit';
 import type { TypegenExecutorSchema } from './schema';
-import { spawn } from 'node:child_process';
 import { promises as fs, existsSync } from 'node:fs';
 import * as path from 'node:path';
+import { execAsync } from '../../utils/execAsync';
 
 const runExecutor: PromiseExecutor<TypegenExecutorSchema> = async (
   options,
@@ -49,18 +49,7 @@ const runExecutor: PromiseExecutor<TypegenExecutorSchema> = async (
     ]);
 
     // Run react-router typegen for the project
-    const command = `react-router typegen`;
-    await new Promise<void>((resolve) => {
-      const commandExec = spawn(command, {
-        stdio: 'inherit',
-        shell: true,
-        cwd: projectRoot,
-        windowsHide: false,
-      });
-      commandExec.on('close', () => {
-        resolve();
-      });
-    });
+    await execAsync('react-router typegen', projectRoot);
 
     // Add a default root.tsx file to the generated types directory
     const rootPath = path.join(projectTypesDir, 'root.tsx');
