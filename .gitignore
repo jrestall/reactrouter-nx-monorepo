@@ -2,6 +2,7 @@
 
 # compiled output
 dist
+!tools/plugins/package-typegen-plugin/dist
 tmp
 /out-tsc
 

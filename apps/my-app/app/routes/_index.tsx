@@ -5,7 +5,7 @@ import type { Route } from './+types/_index';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Monorepo Remix App' },
+    { title: 'Monorepo React Router App' },
     { name: 'description', content: 'Welcome to Remix!' },
   ];
 };
@@ -17,7 +17,7 @@ export function loader() {
 export default function Index({ loaderData }: Route.ComponentProps) {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.8' }}>
-      <h1>Welcome to Remix Monorepo</h1>
+      <h1>Welcome to React Router Monorepo</h1>
       {loaderData.test}
       <ul>
         <li>

@@ -14,28 +14,10 @@
     "@reactrouter-nx-monorepo/feature-accounts": "workspace:*",
     "@reactrouter-nx-monorepo/feature-transfers": "workspace:*",
     "@reactrouter-nx-monorepo/ui": "workspace:*",
+    "package-typegen-plugin": "workspace:*",
     "isbot": "*"
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "nx": {
-    "targets": {
-      "dev": {
-        "dependsOn": [
-          "typegen-watch"
-        ]
-      },
-      "build": {
-        "dependsOn": [
-          "typegen"
-        ]
-      },
-      "typegen": {
-        "dependsOn": [
-          "^typegen"
-        ]
-      }
-    }
   }
 }

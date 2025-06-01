@@ -1,59 +1,27 @@
-import { flatRoutes } from '@react-router/fs-routes';
-import { type RouteConfig } from '@react-router/dev/routes';
-import { createProjectGraphAsync, workspaceRoot } from '@nx/devkit';
+import { remixRoutesOptionAdapter } from '@react-router/remix-routes-option-adapter';
 import {
-  createProjectRootMappings,
-  findProjectForPath,
-} from 'nx/src/project-graph/utils/find-project-for-path';
-import { findAllProjectNodeDependencies } from 'nx/src/utils/project-graph-utils';
-import { relative, resolve, sep } from 'path';
+  getFeatureRouteDirectories,
+  normalizeRouteManifestPaths,
+} from 'package-typegen-plugin';
+import path from 'node:path';
+import { flatRoutes } from 'remix-flat-routes';
 
-const routePaths = await createRoutePaths(__dirname, `src${sep}routes`);
-const routeConfigs = routePaths.map((rootDirectory) =>
-  flatRoutes({ rootDirectory }),
-);
+export default remixRoutesOptionAdapter(async (defineRoutes) => {
+  const packageRouteDirs = await getFeatureRouteDirectories(__dirname);
+  const routeDirs = [...packageRouteDirs, path.resolve(__dirname, 'routes')];
 
-const resolvedRoutes = [
-  ...(await flatRoutes()),
-  ...(await Promise.all(routeConfigs)).flat(),
-];
+  console.log(`Generating routes for: ${routeDirs}`);
 
-// Fix the 'file' property of the package routes since they are cut off with:
-// file: file.slice(appDirectory.length + 1),
-resolvedRoutes.forEach((route) => {
-  if (!route.id || !route.file || route.file.startsWith('routes')) return;
-  route.file = `${route.id}.tsx`;
+  const routeManifest = flatRoutes(routeDirs, defineRoutes, {
+    appDir: '',
+    ignoredRouteFiles: ['**/.*'], // Ignore dot files (like .DS_Store)
+  });
+
+  const normalizedManifest = normalizeRouteManifestPaths(routeManifest);
+
+  console.log(
+    `Generated routes: ${JSON.stringify(normalizedManifest, null, 2)}`,
+  );
+
+  return normalizedManifest;
 });
-
-console.log(JSON.stringify(resolvedRoutes, null, 2));
-
-export default resolvedRoutes satisfies RouteConfig;
-
-/**
- * Generates an array of route paths based on the project dependencies.
- *
- * @param {string} dirname The absolute path to the React Router project, typically `__dirname`.
- */
-export async function createRoutePaths(
-  dirname: string,
-  rootDirectory: string,
-): Promise<string[]> {
-  const graph = await createProjectGraphAsync();
-  const projectRootMappings = createProjectRootMappings(graph.nodes);
-  const projectName = findProjectForPath(
-    relative(workspaceRoot, dirname),
-    projectRootMappings,
-  );
-
-  if (!projectName) {
-    throw new Error(
-      `Project not found for path: ${dirname}. Check the project configuration.`,
-    );
-  }
-
-  const deps = findAllProjectNodeDependencies(projectName, graph);
-
-  return deps.map((nodeName) =>
-    resolve(workspaceRoot, graph.nodes[nodeName].data.root, rootDirectory),
-  );
-}
